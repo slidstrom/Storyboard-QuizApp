@@ -1,0 +1,20 @@
+[
+    {
+        "question": "What's the keyword for declaring a new variable",
+        "answers": ["var","v","variable"],
+        "correctAnswerIndex": 0,
+        "feedback": "var is the keyword used to declare a new variable."
+    },
+    {
+        "question": "What's the keyword for declaring a new constant?",
+        "answers": ["constant","let","con"],
+        "correctAnswerIndex": 1,
+        "feedback": "let is the keyword used to declare a new constant"
+    },
+    {
+        "question": "Who created this app?",
+        "answers": ["Spencer","The man the myth the legend","All of the above"],
+        "correctAnswerIndex": 2,
+        "feedback": "Spencer is the man the myth, the legend who created this app"
+    }
+]
