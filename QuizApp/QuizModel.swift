@@ -19,10 +19,50 @@ class QuizModel {
     
     func getQuestions() {
         
-        // TODO: Fetch the questions
+        // Fetch the questions
+        getLocalJsonFile()
         
-        // Notify the delegate of the retrieved questions
-        delegate?.questionsRetrieved([Question]())
+    }
+    
+    func getLocalJsonFile() {
+        
+        // Get path to json
+        let dataPath = Bundle.main.path(forResource: "QuestionData", ofType: "json")
+        
+        // Double check that the path isn't nil
+        guard dataPath != nil else {
+            print("Couldn't find the json data file")
+            return
+        }
+        
+        // Create URL object from the path
+        let url = URL(fileURLWithPath: dataPath!)
+        
+        do{
+            // Get the data from the uurl
+            let data = try Data(contentsOf: url)
+            
+            let decoder = JSONDecoder()
+            do {
+                let array = try decoder.decode([Question].self, from: data)
+                
+                delegate?.questionsRetrieved(array)
+                
+            }
+            catch{
+                print(error)
+            }
+            
+            
+        }
+        catch{
+            // Error: Couldn't download the data at that URL
+            print("Couldn't download the data")
+        }
+        
+    }
+    
+    func getRemoteJsonFile(){
         
     }
     
