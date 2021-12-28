@@ -15,7 +15,7 @@ class ViewController: UIViewController, QuizProtocol, UITableViewDelegate, UITab
     
     @IBOutlet weak var tableView: UITableView!
     
-        
+    
     // Create quiz model object
     var model = QuizModel()
     
@@ -36,9 +36,28 @@ class ViewController: UIViewController, QuizProtocol, UITableViewDelegate, UITab
         tableView.delegate = self
         tableView.dataSource = self
         
+        // Dynamic row heights (This xcode version is missing the automatic check box)
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
+        
         // Set up the model
         model.delegate = self
         model.getQuestions()
+        
+    }
+    
+    func displayQuestion() {
+        
+        // Check if there are questions, and check that the currentQuestionIndex is not out of bounds
+        guard questions.count > 0 && currentQuestionIndex < questions.count else {
+            return
+        }
+        
+        // Display the question text
+        questionLabel.text = questions[currentQuestionIndex].question
+        
+        // Reload the answers table
+        tableView.reloadData()
         
     }
     
@@ -49,8 +68,9 @@ class ViewController: UIViewController, QuizProtocol, UITableViewDelegate, UITab
         // Get a reference to the questions
         self.questions = questions
         
-        // Reload the tableview
-        tableView.reloadData()
+        // Display the first question
+        displayQuestion()
+        
     }
     
     // MARK: - UITableView Delegate Methods
@@ -82,7 +102,12 @@ class ViewController: UIViewController, QuizProtocol, UITableViewDelegate, UITab
         
         if label != nil {
             // TODO: Set the answer text for the label
+            let question = questions[currentQuestionIndex]
             
+            if question.answers != nil && indexPath.row < question.answers!.count{
+                // Set the label
+                label!.text = question.answers![indexPath.row]
+            }
         }
         
         // Return the cell
@@ -90,7 +115,35 @@ class ViewController: UIViewController, QuizProtocol, UITableViewDelegate, UITab
         
     }
     
-
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // User has tapped on a row, check if it's the right answer
+        let question = questions[currentQuestionIndex]
+        
+        guard question.correctAnswerIndex != nil else{
+            
+            return
+        }
+        if question.correctAnswerIndex! == indexPath.row{
+            // User got it right
+            print("User got it right")
+        }
+        
+        else{
+            // User got it wrong
+            print("User got it wrong")
+        }
+        
+        // Increment the currentQuestion Index
+        currentQuestionIndex += 1
+        
+        // Display the next question
+        displayQuestion()
+        
+        
+    }
+    
+    
+    
 }
 
