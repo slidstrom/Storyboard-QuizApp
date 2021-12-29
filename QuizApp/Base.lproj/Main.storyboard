@@ -91,6 +91,9 @@
                     </view>
                     <connections>
                         <outlet property="questionLabel" destination="LgS-2Z-oKx" id="aec-jI-KkD"/>
+                        <outlet property="rootStackView" destination="1gW-Zh-Qni" id="0lk-D8-WBd"/>
+                        <outlet property="stackViewLeadingConstraint" destination="0rj-S7-1bo" id="xMM-Rl-LSe"/>
+                        <outlet property="stackViewTrailingConstraint" destination="PK6-zz-cDB" id="kjI-lV-0oI"/>
                         <outlet property="tableView" destination="uqF-sH-TkY" id="jyX-LD-dJE"/>
                     </connections>
                 </viewController>
@@ -108,7 +111,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gCw-uD-lVy" userLabel="DimView">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BOP-dq-yjE" userLabel="DialogView">
                                 <rect key="frame" x="40" y="144" width="334" height="618"/>

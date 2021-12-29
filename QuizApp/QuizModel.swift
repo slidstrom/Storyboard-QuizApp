@@ -20,7 +20,7 @@ class QuizModel {
     func getQuestions() {
         
         // Fetch the questions
-        getLocalJsonFile()
+        getRemoteJsonFile()
         
     }
     
@@ -63,6 +63,48 @@ class QuizModel {
     }
     
     func getRemoteJsonFile(){
+        
+        // Get a URLObject from a string
+        let url = URL(string: Constants.urlHost + Constants.fileName)
+        
+        guard url != nil else{
+            return
+        }
+        
+        // URLSession Object for networking functionality
+        let request = URLRequest(url: url!)
+        
+        let session = URLSession.shared
+        
+        // DataTask Object to perform the fetch
+        let dataTask = session.dataTask(with: request) { data, response, error in
+            
+            guard error == nil && data != nil else{
+                return
+            }
+            
+            // handle response
+            do{
+                let decoder = JSONDecoder()
+                
+                let array = try decoder.decode([Question].self, from: data!)
+                
+                // Use the main thread to notify the view controller for UI Work
+                DispatchQueue.main.async {
+                    
+                    // self keyword is needed because we are in a trailing closure
+                    self.delegate?.questionsRetrieved(array)
+                }
+                
+                
+            }
+            catch{
+                print("Couldn't parse the remote json")
+            }
+        }
+        
+        // Call resume on data task
+        dataTask.resume()
         
     }
     

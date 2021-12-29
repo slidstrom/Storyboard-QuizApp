@@ -16,6 +16,12 @@ class ViewController: UIViewController, QuizProtocol, UITableViewDelegate, UITab
     @IBOutlet weak var tableView: UITableView!
     
     
+    @IBOutlet weak var stackViewLeadingConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var stackViewTrailingConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var rootStackView: UIStackView!
+    
     // Create quiz model object
     var model = QuizModel()
     
@@ -55,6 +61,41 @@ class ViewController: UIViewController, QuizProtocol, UITableViewDelegate, UITab
         
     }
     
+    func slideInQuestion() {
+        // Set initial state
+        stackViewTrailingConstraint.constant = -1000
+        stackViewLeadingConstraint.constant = 1000
+        rootStackView.alpha = 0
+        view.layoutIfNeeded()
+        
+        // Animate it to the end state
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
+            self.stackViewLeadingConstraint.constant = 0
+            self.stackViewTrailingConstraint.constant = 0
+            self.rootStackView.alpha = 1
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        
+    }
+    
+    func slideOutQuestion(){
+        // Set initial state
+        stackViewTrailingConstraint.constant = 0
+        stackViewLeadingConstraint.constant = 0
+        rootStackView.alpha = 1
+        view.layoutIfNeeded()
+        
+        // Animate it to the end state
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
+            self.stackViewLeadingConstraint.constant = -1000
+            self.stackViewTrailingConstraint.constant = 1000
+            self.rootStackView.alpha = 0
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+
+    }
+    
+    
     func displayQuestion() {
         
         // Check if there are questions, and check that the currentQuestionIndex is not out of bounds
@@ -67,6 +108,9 @@ class ViewController: UIViewController, QuizProtocol, UITableViewDelegate, UITab
 
         // Reload the answers table
         tableView.reloadData()
+        
+        // Animate the question
+        slideInQuestion()
         
     }
     
@@ -161,6 +205,11 @@ class ViewController: UIViewController, QuizProtocol, UITableViewDelegate, UITab
             titleText = "Wrong"
         }
         
+        // Slide out the question
+        DispatchQueue.main.async {
+            self.slideOutQuestion()
+        }
+        
         // Show the popup
         if resultDialog != nil {
             
@@ -169,7 +218,10 @@ class ViewController: UIViewController, QuizProtocol, UITableViewDelegate, UITab
             resultDialog!.feedbackText = question.feedback!
             resultDialog!.buttonText = "Next"
             
-            present(resultDialog!, animated: true, completion: nil)
+            // This shortens delay between when the user selects an option and the modal pops up
+            DispatchQueue.main.async {
+                self.present(self.resultDialog!, animated: true, completion: nil)
+            }
         }
         
     }
@@ -181,10 +233,9 @@ class ViewController: UIViewController, QuizProtocol, UITableViewDelegate, UITab
         // Increment the currentQuestinIndex
         currentQuestionIndex += 1
         
-        // Increment the currentQuestion Index
+        // The user has entered the last question
         if currentQuestionIndex == questions.count {
-            
-            // The user has just answered the last question
+
             // Show a summary dialog
             if resultDialog != nil {
                 
@@ -204,7 +255,10 @@ class ViewController: UIViewController, QuizProtocol, UITableViewDelegate, UITab
             // Restart
             currentQuestionIndex = 0
             numCorrect = 0
+            
+            // Display and animate the next
             displayQuestion()
+            
             
         }
         else if currentQuestionIndex < questions.count {

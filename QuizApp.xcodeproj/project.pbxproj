@@ -18,6 +18,7 @@
 		2324156D277BAEFF00C068D9 /* QuestionData.json in Resources */ = {isa = PBXBuildFile; fileRef = 2324156C277BAEFF00C068D9 /* QuestionData.json */; };
 		2324156F277CB1BB00C068D9 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2324156E277CB1BB00C068D9 /* ResultViewController.swift */; };
 		23241571277CC28E00C068D9 /* StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23241570277CC28E00C068D9 /* StateManager.swift */; };
+		23241573277CD96500C068D9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23241572277CD96500C068D9 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		2324156C277BAEFF00C068D9 /* QuestionData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = QuestionData.json; sourceTree = "<group>"; };
 		2324156E277CB1BB00C068D9 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		23241570277CC28E00C068D9 /* StateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
+		23241572277CD96500C068D9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 		23241553277BA5C400C068D9 /* QuizApp */ = {
 			isa = PBXGroup;
 			children = (
+				23241572277CD96500C068D9 /* Constants.swift */,
 				23241554277BA5C400C068D9 /* AppDelegate.swift */,
 				23241556277BA5C400C068D9 /* SceneDelegate.swift */,
 				23241558277BA5C400C068D9 /* ViewController.swift */,
@@ -161,6 +164,7 @@
 				23241557277BA5C400C068D9 /* SceneDelegate.swift in Sources */,
 				2324156B277BA64E00C068D9 /* QuizModel.swift in Sources */,
 				2324156F277CB1BB00C068D9 /* ResultViewController.swift in Sources */,
+				23241573277CD96500C068D9 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
